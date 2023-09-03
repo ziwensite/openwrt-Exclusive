@@ -102,7 +102,7 @@ jobs:
    
     - name: SSH远程连接（make menuconfig）
       if: env.SSH_ACTION == 'true'
-      uses: danshui-git/debugger-action@main
+      uses: P3TERX/ssh2actions@v1.0.0
 
     - name: 下载安装包
       id: package
