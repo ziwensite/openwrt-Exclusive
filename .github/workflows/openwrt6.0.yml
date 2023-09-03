@@ -12,12 +12,13 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      ssh:
-        description: 'SSH connection to Actions'
+      SSH_ACTION:
+        description: 'SSH远程配置固件'
         required: false
         default: 'false'
+        type: boolean
   schedule:
-    - cron: 0 22 */3 * * 
+    - cron: 0 22 */30 * * 
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -87,12 +88,9 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-    - name: SSH链接管理
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    - name: SSH远程连接（make menuconfig）
+      if: env.SSH_ACTION == 'true'
+      uses: danshui-git/debugger-action@main
 
     - name: 下载安装包
       id: package
