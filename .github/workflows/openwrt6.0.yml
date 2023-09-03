@@ -27,7 +27,7 @@ env:
   CONFIG_FILE: 6.0D.config
   DIY_P1_SH: diy6.0.sh
   DIY_P2_SH: diy-part2.sh
-  SSH_ACTIONS: false
+  SSH_ACTIONS: github.event.inputs.SSH_ACTION
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_WETRANSFER: false
