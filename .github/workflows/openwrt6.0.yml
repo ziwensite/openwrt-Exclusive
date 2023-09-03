@@ -12,6 +12,11 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
+      REPO_BRANCH:
+        description: '（大雕源码）请选择源码分支'
+        required: true
+        default: 'master'
+        type: choice 
       SSH_ACTION:
         description: 'SSH远程配置固件'
         required: false
@@ -22,12 +27,12 @@ on:
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_BRANCH: ${{ github.event.inputs.REPO_BRANCH }}
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 6.0D.config
   DIY_P1_SH: diy6.0.sh
   DIY_P2_SH: diy-part2.sh
-  SSH_ACTIONS: github.event.inputs.SSH_ACTION
+  SSH_ACTIONS: ${{ github.event.inputs.SSH_ACTION }}
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_WETRANSFER: false
